@@ -1,0 +1,44 @@
+﻿@using ProjectManagementSystem.ViewModel.Project
+
+@model ProjectListViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Agregar", "Create")
+</p>
+<table style="border: solid 3px black; padding: 3px">
+    <tr>
+        <th style="border: solid 3px black;">@Html.DisplayNameFor(model => model.Projects.FirstOrDefault().Name)</th>
+        <th style="border: solid 3px black;">@Html.DisplayNameFor(model => model.Projects.FirstOrDefault().InternalCode)</th>
+    </tr>
+
+    @if (Model.Projects.Any())
+    {
+        foreach (var project in Model.Projects)
+        {
+            if (project.Active)
+            {
+                <tr>
+                    <td style="border: solid 1px black;">@project.Name</td>
+                    <td style="border: solid 1px black;">@project.InternalCode</td>
+                    <td style="border: solid 1px black;">
+                        @Html.ActionLink("Details", "Details", new {id = project.ID}) |
+                        @Html.ActionLink("Edit", "Edit", new {id = project.ID}) |
+                        @Html.ActionLink("Delete", "Delete", new {id = project.ID})
+                    </td>
+                </tr>
+            }
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="2" style="border: solid 3px black;">No Records Found!</td>
+        </tr>
+    }
+</table>
